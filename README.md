@@ -1,6 +1,4 @@
-<p align="center">
-<img src=".github/cover.gif" height="400">
-</p>
+
 
 # App de Controle Financeiro
 
