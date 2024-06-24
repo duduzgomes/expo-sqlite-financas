@@ -7,7 +7,9 @@ node_modules/
 .expo/
 dist/
 web-build/
-*.eas
+eas.json
+.prettierrc
+
 
 # Native
 *.orig.*

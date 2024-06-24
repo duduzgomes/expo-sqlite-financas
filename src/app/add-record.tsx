@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Alert, Text, View } from 'react-native'
+import {
+    Alert,
+    Keyboard,
+    Modal,
+    Pressable,
+    Text,
+    TextInput,
+    TouchableWithoutFeedback,
+    View,
+} from 'react-native'
 import { router } from 'expo-router'
 import { useRecordDatabase } from '@/database/useRecordDatabase'
 
@@ -13,6 +22,7 @@ import DateTimePicker, {
 } from '@react-native-community/datetimepicker'
 import { formatDefaultDateIso } from '@/utils/date'
 import { useRoute } from '@react-navigation/native'
+import Calculator from '@/components/calculator/calculator'
 
 type DateProps = {
     month: string
@@ -30,6 +40,8 @@ export default function AddRecord() {
 
     const [showCalendar, setShowCalendar] = useState(false)
     const [dateCalendar, setDateCalendar] = useState<Date>(new Date())
+
+    const [openKeyBoard, setOpenKeyBoard] = useState(false)
 
     const recordDatabase = useRecordDatabase()
     const route = useRoute()
@@ -310,14 +322,21 @@ export default function AddRecord() {
                 />
             </InputForm>
 
-            <InputForm label={installment ? 'Valor parcela' : 'Valor'}>
-                <InputForm.Field
-                    placeholder={value}
-                    keyboardType='numeric'
-                    onChangeText={setValue}
-                    value={value}
-                />
-            </InputForm>
+            <View className='flex-row items-center mt-4 '>
+                <Text className='text-white text-base w-1/3'>
+                    {installment ? 'Valor parvela' : 'Valor'}
+                </Text>
+                <Pressable
+                    className='bg-gray-600 h-10 flex-1 rounded-lg justify-center pl-2 '
+                    onPress={() => setOpenKeyBoard(prev => !prev)}
+                >
+                    <Text className='text-white'>{value}</Text>
+                </Pressable>
+            </View>
+
+            {openKeyBoard && (
+                <Calculator onPress={setValue} visible={setOpenKeyBoard} />
+            )}
 
             {installment && !isRecurrence && (
                 <>

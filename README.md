@@ -1,7 +1,3 @@
-<p align="center">
-<img src=".github/cover.gif" height="400">
-</p>
-
 # App de Controle Financeiro
 
 Este é um aplicativo de controle de receitas e despesas, desenvolvido para ajudar na gestão financeira pessoal. O aplicativo permite criar receitas ou despesas recorrentes, parceladas ou únicas, e oferece filtragem por mês, entre outras funcionalidades.

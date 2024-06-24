@@ -1,4 +1,5 @@
 import ButtonIcon from '@/components/button-icon'
+import Calculator from '@/components/calculator/calculator'
 import FormButton from '@/components/form-button'
 import { InputForm } from '@/components/form-input'
 import ModalBox from '@/components/modal-box'
@@ -18,7 +19,7 @@ import { useRoute } from '@react-navigation/native'
 import clsx from 'clsx'
 import { router } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { Alert, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Pressable, Text, TouchableOpacity, View } from 'react-native'
 
 export default function Details() {
     const [description, setDescription] = useState('')
@@ -26,6 +27,7 @@ export default function Details() {
     const [category, setCategory] = useState('')
     const [showBoxExclude, setBoxExlude] = useState(false)
     const [showBoxDisable, setBoxDisable] = useState(false)
+    const [openKeyBoard, setOpenKeyBoard] = useState(false)
     const [edit, setEdit] = useState(false)
     const [dueDate, setDueDate] = useState('')
 
@@ -37,6 +39,11 @@ export default function Details() {
     const route = useRoute()
 
     const data = route.params as RecordProps
+
+    useEffect(() => {
+        console.log('edit: ' + edit)
+        console.log('open' + openKeyBoard)
+    })
 
     useEffect(() => {
         setDescription(data.description)
@@ -221,17 +228,28 @@ export default function Details() {
                     editable={edit}
                 />
             </InputForm>
-            <InputForm label='Valor'>
-                <InputForm.Field
-                    value={
-                        edit
-                            ? value
-                            : Number(value).toFixed(2).replace('.', ',')
-                    }
-                    onChangeText={setValue}
-                    editable={edit}
-                />
-            </InputForm>
+
+            <View className='flex-row items-center mt-4 '>
+                <Text className='text-white text-base w-1/3'>
+                    {installment ? 'Valor parcela' : 'Valor'}
+                </Text>
+                <Pressable
+                    className={clsx(
+                        'bg-gray-700 h-10 flex-1 rounded-lg justify-center pl-2 ',
+                        {
+                            'bg-gray-600': edit,
+                        },
+                    )}
+                    onPress={() => setOpenKeyBoard(prev => !prev)}
+                >
+                    <Text className='text-white'>{value}</Text>
+                </Pressable>
+            </View>
+
+            {openKeyBoard && edit && (
+                <Calculator onPress={setValue} visible={setOpenKeyBoard} />
+            )}
+
             <InputForm label='Modalidade'>
                 <InputForm.Field value={placeHolderModality} editable={false} />
             </InputForm>
