@@ -302,10 +302,8 @@ export default function AddRecord() {
                 checkedValue={typeRecord}
                 onChange={setTypeRecord}
             />
-            <View className='my-2 z-60 mt-4'>
-                <Text className='text-base text-white w-1/3 py-2  font-subtitle'>
-                    Modalidade
-                </Text>
+
+            <Select label='Modalidade'>
                 <Select.Field
                     placeHolder='Selecione uma Modalidade'
                     options={optionsModality}
@@ -313,7 +311,8 @@ export default function AddRecord() {
                     onChange={setTypeModality}
                     disable={false}
                 />
-            </View>
+            </Select>
+
             <InputForm label='Descrição'>
                 <InputForm.Field
                     onPress={() => setOpenKeyBoard(false)}
@@ -323,15 +322,17 @@ export default function AddRecord() {
                 />
             </InputForm>
 
-            <View className='flex-row items-center mt-4 '>
-                <Text className='text-white text-base w-1/3'>
-                    {installment ? 'Valor parvela' : 'Valor'}
+            <View className='flex-row items-center mt-4'>
+                <Text className='text-white text-lg w-1/3'>
+                    {installment ? 'Valor parcela' : 'Valor'}
                 </Text>
                 <Pressable
-                    className='bg-gray-600 h-10 flex-1 rounded-lg justify-center pl-2 '
+                    className='bg-gray-600 h-12 flex-1 rounded-lg justify-center px-2'
                     onPress={() => setOpenKeyBoard(prev => !prev)}
                 >
-                    <Text className='text-white'>{value}</Text>
+                    <Text className='text-white font-body text-lg'>
+                        {value}
+                    </Text>
                 </Pressable>
             </View>
 
@@ -381,10 +382,8 @@ export default function AddRecord() {
                             onPress={() => setShowCalendar(true)}
                         />
                     </InputForm>
-                    <View className='my-4 z-60'>
-                        <Text className='text-base text-white w-1/3 py-2  font-subtitle'>
-                            Categoria
-                        </Text>
+
+                    <Select label='Categoria'>
                         <Select.Field
                             placeHolder='Selecione uma categoria'
                             options={optionsSelect}
@@ -392,7 +391,7 @@ export default function AddRecord() {
                             onChange={setCategory}
                             disable={!expense}
                         />
-                    </View>
+                    </Select>
                 </>
             )}
 

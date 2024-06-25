@@ -1,5 +1,5 @@
 import { colors } from '@/styles/colors'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, Pressable, View } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 type OptionRadio = {
@@ -23,7 +23,7 @@ export default function ButtonRadio({
             {options.map(option => {
                 let active = option.value == checkedValue
                 return (
-                    <TouchableOpacity
+                    <Pressable
                         className='flex-row items-center'
                         key={option.value}
                         onPress={() => onChange(option.value)}
@@ -40,7 +40,7 @@ export default function ButtonRadio({
                         <Text className='text-white text-base font-subtitle pl-2'>
                             {option.label}
                         </Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 )
             })}
         </View>

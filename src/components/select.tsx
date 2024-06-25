@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { Text, TouchableOpacity, View, ScrollView } from 'react-native'
+import { Text, Pressable, View, ScrollView } from 'react-native'
 import clsx from 'clsx'
 
 type OptionSelect = {
@@ -16,10 +16,18 @@ type SelectFieldProps = {
 }
 type SelectProps = {
     children: ReactNode
+    label: string
 }
 
-function Select({ children }: SelectProps) {
-    return <View className=''>{children}</View>
+function Select({ children, label }: SelectProps) {
+    return (
+        <View className='my-2 z-60 mt-4 flex-row max-h-48'>
+            <Text className='text-lg text-white w-1/3 py-2 font-body'>
+                {label}
+            </Text>
+            {children}
+        </View>
+    )
 }
 
 function SelectField({
@@ -44,36 +52,33 @@ function SelectField({
     const selectedLabel = getLabelFromValue(checkedValue)
     return (
         <View
-            className={clsx(
-                'flex-1 rounded-lg bg-gray-600 py-1 max-h-52 w-2/3 absolute r-0 z-20 right-0 ',
-                {
-                    ' bg-gray-700 ': disable,
-                },
-            )}
+            className={clsx('flex-1 rounded-lg bg-gray-600 w-2/3 pb-1 ', {
+                ' bg-gray-700 ': disable,
+            })}
         >
-            <TouchableOpacity
+            <Pressable
                 disabled={disable}
                 className={clsx('p-2 z-10', {
                     'border-b border-gray-500': activeSelect,
                 })}
                 onPress={() => setActiveSelect(prev => !prev)}
             >
-                <Text className='text-white text-base'>{selectedLabel}</Text>
-            </TouchableOpacity>
+                <Text className='text-white text-lg pl-2'>{selectedLabel}</Text>
+            </Pressable>
 
             {activeSelect && (
-                <ScrollView className='rounded-lg max-h-52'>
+                <ScrollView className='rounded-lg'>
                     {options.map(option => {
                         return (
-                            <TouchableOpacity
+                            <Pressable
                                 key={option.value}
                                 className='bg-gray-600 p-2'
                                 onPress={() => handleChooseSelect(option)}
                             >
-                                <Text className='text-white text-base'>
+                                <Text className='text-white text-lg pl-2'>
                                     {option.label}
                                 </Text>
-                            </TouchableOpacity>
+                            </Pressable>
                         )
                     })}
                 </ScrollView>

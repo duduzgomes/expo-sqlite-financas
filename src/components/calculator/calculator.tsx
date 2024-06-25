@@ -1,4 +1,4 @@
-import { Modal, Text, TouchableOpacity, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 import ButtonNum from './button-num'
 import { useEffect, useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -73,6 +73,7 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
 
     function addNum(num: string) {
         if (current.includes('.') && num == '.') return
+
         setCurrent(prev => prev + num)
         setLabel(prev => prev + num)
     }
@@ -90,14 +91,14 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
     }
 
     return (
-        <View className='absolute w-screen bottom-0 z-40 flex-1'>
+        <View className='bottom-0 z-40 flex-1 justify-end'>
             <View className='bg-gray-800 p-2 gap-2'>
                 <View className='bg-gray-600 p-2 items-end h-10 rounded-lg'>
                     <Text className='text-white text-lg -tracking-wide'>
                         {label}
                     </Text>
                 </View>
-                <View className='flex-row justify-between space-x-1'>
+                <View className='flex-row justify-between gap-1'>
                     {/* coluna 1 */}
                     <View className='flex-1'>
                         <ButtonNum label='1' onPress={() => addNum('1')} />
@@ -138,16 +139,16 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
                             onPress={() => chooseOperation('-')}
                         />
                     </View>
-                    <View className='flex-1 space-y-1 pb-1'>
-                        <TouchableOpacity
+                    <View className='flex-1 gap-1 pb-1'>
+                        <Pressable
                             className='bg-gray-600 justify-center items-center flex-1 rounded-lg'
                             onPress={() => deleteNum()}
                         >
                             <Text className='text-lg font-heading text-white'>
                                 CE
                             </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
+                        </Pressable>
+                        <Pressable
                             className='bg-gray-600 justify-center items-center py-10 rounded-lg'
                             onPress={finish}
                         >
@@ -156,7 +157,7 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
                                 size={24}
                                 color='white'
                             />
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
                 </View>
             </View>

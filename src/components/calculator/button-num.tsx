@@ -1,16 +1,16 @@
-import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import { Text, Pressable, PressableProps } from 'react-native'
 
-type ButtonNum = TouchableOpacityProps & {
+type ButtonNum = PressableProps & {
     label: string
 }
 
 export default function ButtonNum({ label, ...rest }: ButtonNum) {
     return (
-        <TouchableOpacity
+        <Pressable
             {...rest}
             className='bg-gray-600 py-3 mb-1 items-center justify-center rounded-lg'
         >
             <Text className='text-gray-300 font-heading text-lg'>{label}</Text>
-        </TouchableOpacity>
+        </Pressable>
     )
 }

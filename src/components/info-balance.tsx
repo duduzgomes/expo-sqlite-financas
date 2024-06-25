@@ -21,11 +21,9 @@ function InfoBalance({ children }: InfoBalanceProps) {
 function TextField({ title, value }: BalanceProps) {
     return (
         <View className='flex-1 items-center'>
-            <Text className='text-base text-gray-400 font-subtitle'>
-                {title}
-            </Text>
+            <Text className='text-lg text-gray-400 font-subtitle'>{title}</Text>
             <Text
-                className='text-base text-gray-300 font-bold'
+                className='text-lg text-gray-300 font-bold'
                 lineBreakMode='tail'
                 numberOfLines={1}
             >

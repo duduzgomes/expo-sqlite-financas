@@ -260,7 +260,7 @@ export default function Index() {
                     paddingVertical: 14,
                 }}
                 ListHeaderComponent={() => (
-                    <Text className='uppercase text-gray-400 text-sm font-subtitle '>
+                    <Text className='uppercase text-gray-400 text-base font-subtitle '>
                         Registros
                     </Text>
                 )}

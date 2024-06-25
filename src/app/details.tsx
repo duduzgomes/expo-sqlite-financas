@@ -202,25 +202,22 @@ export default function Details() {
                     onChange={handleCalendar}
                 />
             )}
-            <View className='justify-end space-x-6 flex-row'>
-                <TouchableOpacity
-                    onPress={() => setEdit(true)}
-                    className='flex-row'
-                >
+            <View className='justify-end gap-4 flex-row'>
+                <Pressable onPress={() => setEdit(true)} className='flex-row'>
                     <ButtonIcon nameIcon='edit' color={colors.orange[500]} />
-                    <Text className='text-base font-subtitle text-white pl-1'>
+                    <Text className='text-lg font-subtitle text-white pl-1'>
                         Editar
                     </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                </Pressable>
+                <Pressable
                     onPress={() => setBoxExlude(true)}
                     className='flex-row'
                 >
                     <ButtonIcon nameIcon='delete' color={colors.orange[500]} />
-                    <Text className='text-base font-subtitle text-white pl-1'>
+                    <Text className='text-lg font-subtitle text-white pl-1'>
                         Excluir
                     </Text>
-                </TouchableOpacity>
+                </Pressable>
             </View>
 
             <InputForm label='Descrição'>
@@ -232,7 +229,7 @@ export default function Details() {
             </InputForm>
 
             <View className='flex-row items-center mt-4 '>
-                <Text className='text-white text-base w-1/3'>
+                <Text className='text-white text-lg w-1/3'>
                     {installment ? 'Valor parcela' : 'Valor'}
                 </Text>
                 <Pressable
@@ -244,7 +241,7 @@ export default function Details() {
                     )}
                     onPress={() => setOpenKeyBoard(prev => !prev)}
                 >
-                    <Text className='text-white'>{value}</Text>
+                    <Text className='text-white pl-2'>{value}</Text>
                 </Pressable>
             </View>
 
@@ -253,7 +250,7 @@ export default function Details() {
                     <Modal
                         visible={openKeyBoard}
                         transparent={true}
-                        animationType='fade'
+                        animationType='slide'
                     >
                         <Pressable
                             className='bg-gray-300 flex-1 bg-transparent'
@@ -280,8 +277,8 @@ export default function Details() {
 
             {expense && (
                 <>
-                    <View className='my-4 z-60'>
-                        <Text className='text-base text-white w-1/3 py-2  font-subtitle'>
+                    <View className='my-4 flex-row max-h-56'>
+                        <Text className='text-lg text-white w-1/3 py-2 font-body'>
                             Categoria
                         </Text>
                         <Select.Field

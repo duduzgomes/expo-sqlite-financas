@@ -15,7 +15,7 @@ type InputFieldProps = TextInputProps & {
 function InputForm({ label, children }: InputFormProps) {
     return (
         <View className='flex-row items-center mt-4'>
-            <Text className='text-white text-base w-1/3'>{label}</Text>
+            <Text className='text-white text-lg w-1/3 font-body'>{label}</Text>
             {children}
         </View>
     )
@@ -31,9 +31,9 @@ function InputField({
         <TextInput
             {...rest}
             className={clsx(
-                'flex-1 bg-gray-700 px-4 p-2 text-white text-base font-body rounded-lg',
+                'flex-1 bg-gray-600 px-4 py-2 text-white text-lg font-body rounded-lg',
                 {
-                    'bg-gray-600': editable,
+                    'bg-gray-700': !editable,
                     'bg-gray-800': isDate && toogle,
                 },
             )}
