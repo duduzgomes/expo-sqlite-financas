@@ -211,7 +211,7 @@ export default function Index() {
                     }
                 />
                 <InfoBalance.Field
-                    title='Dispesa'
+                    title='Despesa'
                     value={
                         expense
                             ? String(expense?.toFixed(2)).replace('.', ',')

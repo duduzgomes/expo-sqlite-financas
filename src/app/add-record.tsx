@@ -316,6 +316,7 @@ export default function AddRecord() {
             </View>
             <InputForm label='Descrição'>
                 <InputForm.Field
+                    onPress={() => setOpenKeyBoard(false)}
                     placeholder={description}
                     onChangeText={setDescription}
                     value={description}
@@ -335,7 +336,23 @@ export default function AddRecord() {
             </View>
 
             {openKeyBoard && (
-                <Calculator onPress={setValue} visible={setOpenKeyBoard} />
+                <>
+                    <Modal
+                        visible={openKeyBoard}
+                        transparent={true}
+                        animationType='fade'
+                    >
+                        <Pressable
+                            className='bg-gray-300 flex-1 bg-transparent'
+                            onPress={() => setOpenKeyBoard(false)}
+                        />
+
+                        <Calculator
+                            onPress={setValue}
+                            visible={setOpenKeyBoard}
+                        />
+                    </Modal>
+                </>
             )}
 
             {installment && !isRecurrence && (

@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Modal, Text, TouchableOpacity, View } from 'react-native'
 import ButtonNum from './button-num'
 import { useEffect, useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -13,31 +13,33 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
     const [current, setCurrent] = useState('')
     const [operation, setOperation] = useState('')
     const [label, setLabel] = useState('')
+    const [updateState, setUpdateState] = useState(false)
 
     useEffect(() => {
-        console.log('previous: ' + previous)
-        console.log('current: ' + current)
-        console.log('label: ' + label)
-    }, [previous, current, label])
-
-    function addNum(num: string) {
-        if (current.includes('.') && num == '.') return
-        setCurrent(prev => prev + num)
-        setLabel(prev => prev + num)
-    }
+        if (updateState) {
+            setPrevious(current)
+            setCurrent('')
+            setLabel(prev => prev + operation)
+            setUpdateState(false)
+        }
+    }, [updateState, current, operation])
 
     function chooseOperation(operation: string) {
+        if (current == '') {
+            setCurrent(operation)
+        }
         if (previous != '') {
             calculate()
+        } else {
+            setOperation(operation)
+            setPrevious(current)
+            setCurrent('')
+            setLabel(prev => prev + operation)
         }
-
         setOperation(operation)
-        setPrevious(current)
-        setCurrent('')
-        setLabel(prev => prev + operation)
     }
 
-    function calculate() {
+    function calculate(equals = false) {
         let result
         const prev = parseFloat(previous)
         const curr = parseFloat(current)
@@ -59,9 +61,20 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
             default:
                 break
         }
-        setPrevious('')
         setCurrent(String(result))
         setLabel(String(result))
+
+        if (equals) {
+            setPrevious('')
+            return
+        }
+        setUpdateState(true)
+    }
+
+    function addNum(num: string) {
+        if (current.includes('.') && num == '.') return
+        setCurrent(prev => prev + num)
+        setLabel(prev => prev + num)
     }
 
     function finish() {
@@ -77,9 +90,9 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
     }
 
     return (
-        <View className='absolute w-screen bottom-0 z-40'>
+        <View className='absolute w-screen bottom-0 z-40 flex-1'>
             <View className='bg-gray-800 p-2 gap-2'>
-                <View className='bg-gray-600 p-2 items-end h-10 '>
+                <View className='bg-gray-600 p-2 items-end h-10 rounded-lg'>
                     <Text className='text-white text-lg -tracking-wide'>
                         {label}
                     </Text>
@@ -104,7 +117,7 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
                         <ButtonNum label='3' onPress={() => addNum('3')} />
                         <ButtonNum label='6' onPress={() => addNum('6')} />
                         <ButtonNum label='9' onPress={() => addNum('9')} />
-                        <ButtonNum label='=' onPress={() => calculate()} />
+                        <ButtonNum label='=' onPress={() => calculate(true)} />
                     </View>
                     {/* coluna 4 */}
                     <View className='flex-1'>
@@ -127,7 +140,7 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
                     </View>
                     <View className='flex-1 space-y-1 pb-1'>
                         <TouchableOpacity
-                            className='bg-gray-600 justify-center items-center flex-1'
+                            className='bg-gray-600 justify-center items-center flex-1 rounded-lg'
                             onPress={() => deleteNum()}
                         >
                             <Text className='text-lg font-heading text-white'>
@@ -135,7 +148,7 @@ export default function Calculator({ onPress, visible }: CalculatorProps) {
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            className='bg-gray-600 justify-center items-center py-10'
+                            className='bg-gray-600 justify-center items-center py-10 rounded-lg'
                             onPress={finish}
                         >
                             <MaterialIcons

@@ -19,7 +19,14 @@ import { useRoute } from '@react-navigation/native'
 import clsx from 'clsx'
 import { router } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { Alert, Pressable, Text, TouchableOpacity, View } from 'react-native'
+import {
+    Alert,
+    Modal,
+    Pressable,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
 
 export default function Details() {
     const [description, setDescription] = useState('')
@@ -39,11 +46,6 @@ export default function Details() {
     const route = useRoute()
 
     const data = route.params as RecordProps
-
-    useEffect(() => {
-        console.log('edit: ' + edit)
-        console.log('open' + openKeyBoard)
-    })
 
     useEffect(() => {
         setDescription(data.description)
@@ -247,7 +249,23 @@ export default function Details() {
             </View>
 
             {openKeyBoard && edit && (
-                <Calculator onPress={setValue} visible={setOpenKeyBoard} />
+                <>
+                    <Modal
+                        visible={openKeyBoard}
+                        transparent={true}
+                        animationType='fade'
+                    >
+                        <Pressable
+                            className='bg-gray-300 flex-1 bg-transparent'
+                            onPress={() => setOpenKeyBoard(false)}
+                        />
+
+                        <Calculator
+                            onPress={setValue}
+                            visible={setOpenKeyBoard}
+                        />
+                    </Modal>
+                </>
             )}
 
             <InputForm label='Modalidade'>
