@@ -1,5 +1,6 @@
 import { Loading } from '../components/loading'
 import { SQLiteProvider } from 'expo-sqlite'
+import '../styles/global.css'
 import { Stack } from 'expo-router'
 import {
     useFonts,
